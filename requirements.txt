@@ -1,0 +1,7 @@
+Django==5.2.7
+djangorestframework
+psycopg2-binary
+celery
+redis
+dj-database-url
+

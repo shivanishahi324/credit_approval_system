@@ -1,0 +1,25 @@
+# Ignore virtual environments
+venv/
+myenv/
+.env
+
+# Ignore system files
+*.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore personal folders outside project
+../*
+
+*.tar
