@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,6 +27,8 @@ SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+import os
+
 ALLOWED_HOSTS = [
     'credit-approval-system-26fb.onrender.com',
     'www.credit-approval-system-26fb.onrender.com',
@@ -34,8 +38,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://credit-approval-system-26fb.onrender.com',
-    'https://www.credit-approval-system-26fb.onrender.com',
-    'http://credit-approval-system-26fb.onrender.com'
+    'https://www.credit-approval-system-26fb.onrender.com'
 ]
 
 # Application definition
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
