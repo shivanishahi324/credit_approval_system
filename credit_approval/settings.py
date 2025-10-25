@@ -26,6 +26,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://credit-approval-system-26fb.onrender.com',
     'https://www.credit-approval-system-26fb.onrender.com'
 ]
+CSRF_COOKIE_DOMAIN = '.onrender.com'
+
 
 # ✅ Important for Render’s reverse proxy
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
