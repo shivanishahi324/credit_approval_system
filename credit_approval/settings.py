@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://credit-approval-system-26fb.onrender.com',
-    'https://www.credit-approval-system-26fb.onrender.com'
+    'https://www.credit-approval-system-26fb.onrender.com',
+    'http://credit-approval-system-26fb.onrender.com'
 ]
 
 # Application definition
