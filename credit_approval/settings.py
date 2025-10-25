@@ -8,34 +8,31 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# ----------------------------
-# BASE DIRECTORY
-# ----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ----------------------------
-# SECURITY SETTINGS
-# ----------------------------
 SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a'
+DEBUG = True
 
-DEBUG = True  # Keep True for development, False for production
+# ✅ allow all subdomains of render.com for CSRF
+ALLOWED_HOSTS = [
+    '.onrender.com',
+    'localhost',
+    '127.0.0.1'
+]
 
-# ----------------------------
-# HOST & CSRF CONFIGURATION
-# ----------------------------
-ALLOWED_HOSTS = os.getenv(
-    'DJANGO_ALLOWED_HOSTS',
-    'credit-approval-system-26fb.onrender.com,www.credit-approval-system-26fb.onrender.com,127.0.0.1,localhost'
-).split(',')
+# ✅ Automatically trust any render.com origin
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'https://credit-approval-system-26fb.onrender.com',
+    'https://www.credit-approval-system-26fb.onrender.com'
+]
 
-CSRF_TRUSTED_ORIGINS = os.getenv(
-    'DJANGO_CSRF_TRUSTED_ORIGINS',
-    'https://credit-approval-system-26fb.onrender.com,https://www.credit-approval-system-26fb.onrender.com'
-).split(',')
+# ✅ Important for Render’s reverse proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# ✅ Secure cookies for HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # ----------------------------
 # APPLICATION DEFINITION
