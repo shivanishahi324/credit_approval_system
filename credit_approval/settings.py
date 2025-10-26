@@ -19,9 +19,8 @@ ALLOWED_HOSTS = [
 # -------------------- CSRF & HTTPS FIXES --------------------
 # -------------------- CSRF & HTTPS FIXES --------------------
 CSRF_TRUSTED_ORIGINS = [
-    "https://credit-approval-system-26fb.onrender.com",
-    "https://www.credit-approval-system-26fb.onrender.com",
-    "https://*.onrender.com",  # wildcard support (Render)
+    'https://credit-approval-system-26fb.onrender.com/',
+    
 ]
 
 #  Render proxy fix
