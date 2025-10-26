@@ -32,8 +32,11 @@ SECURE_SSL_REDIRECT = True
 # Allow CSRF cookies for Render domain
 CSRF_COOKIE_DOMAIN = '.onrender.com'
 
-# Add dynamically from ALLOWED_HOSTS
+# ✅ Add dynamically from ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS += ['https://' + host for host in ALLOWED_HOSTS if '.' in host]
+
+# ✅ Store CSRF token in user session instead of cookie (Render-friendly)
+CSRF_USE_SESSIONS = True
 
 # ✅ Temporary CSRF failure debugger (for current issue tracing)
 CSRF_FAILURE_VIEW = 'credit_approval.views.csrf_debug_view'
