@@ -30,6 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('customers.urls')),
     path('api/v1/', include('loans.urls')),
+    path('csrf-test/', views.csrf_debug_view),
+    path('csrf-test/', views.csrf_debug_view),
 
 
 ]
