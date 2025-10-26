@@ -7,7 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------- SECURITY --------------------
 SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a'
-DEBUG = False  # For production
+DEBUG = False  # keep False for production on Render
+
 ALLOWED_HOSTS = [
     'credit-approval-system-26fb.onrender.com',
     'www.credit-approval-system-26fb.onrender.com',
@@ -15,20 +16,27 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 
-# -------------------- CSRF & SECURITY FIXES --------------------
+# -------------------- CSRF & HTTPS FIXES --------------------
 CSRF_TRUSTED_ORIGINS = [
     'https://credit-approval-system-26fb.onrender.com',
     'https://www.credit-approval-system-26fb.onrender.com',
 ]
 
-# Render ke proxy ke liye fix
+# Fix for Render HTTPS proxy
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
-# Some Render setups need this:
+# Allow CSRF cookies for Render domain
+CSRF_COOKIE_DOMAIN = '.onrender.com'
+
+# Add dynamically from ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS += ['https://' + host for host in ALLOWED_HOSTS if '.' in host]
+
+# ✅ Temporary CSRF failure debugger (for current issue tracing)
+CSRF_FAILURE_VIEW = 'credit_approval.views.csrf_debug_view'
 
 # -------------------- APPLICATIONS --------------------
 INSTALLED_APPS = [
