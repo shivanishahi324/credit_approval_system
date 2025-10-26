@@ -8,7 +8,7 @@ def home(request):
 @requires_csrf_token
 def csrf_debug_view(request, reason=""):
     return JsonResponse({
-        "error": "CSRF verification failed ❌",
+        "error": "CSRF verification failed ",
         "reason": reason,
         "origin": request.META.get("HTTP_ORIGIN"),
         "referer": request.META.get("HTTP_REFERER"),

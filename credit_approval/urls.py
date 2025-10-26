@@ -20,18 +20,13 @@ Including another URLconf
 #     return JsonResponse({"message": " Credit Approval API is running successfully!"})
 
 from django.contrib import admin
-from django.urls import path
-from django.urls import include
-from . import views 
-
+from django.urls import path, include
+from . import views  
 
 urlpatterns = [
-    path('', views.home, name='home'), 
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('api/v1/', include('customers.urls')),
     path('api/v1/', include('loans.urls')),
-    path('csrf-test/', views.csrf_debug_view),
-    path('csrf-test/', views.csrf_debug_view),
-
-
+    path('csrf-test/', views.csrf_debug_view), 
 ]
