@@ -17,29 +17,31 @@ ALLOWED_HOSTS = [
 ]
 
 # -------------------- CSRF & HTTPS FIXES --------------------
+# -------------------- CSRF & HTTPS FIXES --------------------
 CSRF_TRUSTED_ORIGINS = [
-    'https://credit-approval-system-26fb.onrender.com',
-    'https://www.credit-approval-system-26fb.onrender.com',
+    "https://credit-approval-system-26fb.onrender.com",
+    "https://www.credit-approval-system-26fb.onrender.com",
+    "https://*.onrender.com",  # wildcard support (Render)
 ]
 
-# Fix for Render HTTPS proxy
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#  Render proxy fix
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+#  Secure cookies
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
-# Allow CSRF cookies for Render domain
-CSRF_COOKIE_DOMAIN = '.onrender.com'
-
-# ✅ Add dynamically from ALLOWED_HOSTS
-CSRF_TRUSTED_ORIGINS += ['https://' + host for host in ALLOWED_HOSTS if '.' in host]
-
-# ✅ Store CSRF token in user session instead of cookie (Render-friendly)
+#  Render CSRF domain issue avoid karne ke liye
+CSRF_COOKIE_DOMAIN = None
 CSRF_USE_SESSIONS = True
 
-# ✅ Temporary CSRF failure debugger (for current issue tracing)
-CSRF_FAILURE_VIEW = 'credit_approval.views.csrf_debug_view'
+#  Referer mismatch safe bypass (Render proxy ke liye)
+CSRF_TRUSTED_ORIGINS += ["https://" + host for host in ALLOWED_HOSTS if "." in host]
+
+#  Temporary CSRF failure debugger (just for now)
+CSRF_FAILURE_VIEW = "credit_approval.views.csrf_debug_view"
+
 
 # -------------------- APPLICATIONS --------------------
 INSTALLED_APPS = [
