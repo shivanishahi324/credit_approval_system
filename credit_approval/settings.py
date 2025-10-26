@@ -12,12 +12,13 @@ DEBUG = False  # keep False for production on Render
 ALLOWED_HOSTS = [
     'https://credit-approval-system-26fb.onrender.com/',
     '127.0.0.1',
-     '['*']',
+     '*',
     'localhost'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://credit-approval-system-26fb.onrender.com/'
+    'https://credit-approval-system-26fb.onrender.com/',
+     '*',
 ]
 
 #  Render proxy fix
