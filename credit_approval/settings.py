@@ -10,15 +10,12 @@ SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a
 DEBUG = False  # keep False for production on Render
 
 ALLOWED_HOSTS = [
-    'https://credit-approval-system-26fb.onrender.com/',
-    '127.0.0.1',
-     '*',
+    'https://credit-approval-system-26fb.onrender.com',
     'localhost'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://credit-approval-system-26fb.onrender.com/',
-     '*',
+    'https://credit-approval-system-26fb.onrender.com'
 ]
 
 #  Render proxy fix
