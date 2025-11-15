@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a
 DEBUG = False  # keep False for production on Render
 
 ALLOWED_HOSTS = [
-    'https://credit-approval-system-26fb.onrender.com',
+    'credit-approval-system-26fb.onrender.com',
     'localhost'
     '.onrender.com'
 ]
@@ -29,11 +29,11 @@ SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
 #  Render CSRF domain issue avoid karne ke liye
-CSRF_COOKIE_DOMAIN = None
-CSRF_USE_SESSIONS = True
+#CSRF_COOKIE_DOMAIN = None
+# CSRF_USE_SESSIONS = True
 
 #  Referer mismatch safe bypass (Render proxy ke liye)
-CSRF_TRUSTED_ORIGINS += ["https://" + host for host in ALLOWED_HOSTS if "." in host]
+# CSRF_TRUSTED_ORIGINS += ["https://" + host for host in ALLOWED_HOSTS if "." in host]
 
 #  Temporary CSRF failure debugger (just for now)
 CSRF_FAILURE_VIEW = "credit_approval.views.csrf_debug_view"
