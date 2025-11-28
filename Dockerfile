@@ -4,9 +4,10 @@ FROM python:3.10-slim
 # Set work directory inside the container
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (with SSL certificates)
 RUN apt-get update && apt-get install -y \
-    libpq-dev gcc && \
+    libpq-dev gcc ca-certificates && \
+    update-ca-certificates && \
     pip install --upgrade pip
 
 # Copy all project files into container

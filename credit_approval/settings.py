@@ -7,37 +7,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------- SECURITY --------------------
 SECRET_KEY = 'django-insecure-ql=&=4=mv1$(omuh2=dnv8@z=4b$2g8iglo5-c#+z@*5cqai&a'
-DEBUG = False  # keep False for production on Render
+
+# 🔥 LOCAL DEVELOPMENT → DEBUG ON
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    'credit-approval-system-26fb.onrender.com',
-    'localhost'
-    '.onrender.com'
+    "localhost",
+    "127.0.0.1",
+    "credit-approval-system-26fb.onrender.com",
+    ".onrender.com"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://credit-approval-system-26fb.onrender.com'
-
+    "https://credit-approval-system-26fb.onrender.com"
 ]
 
-#  Render proxy fix
+# Render proxy fix (safe)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-#  Secure cookies
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# Secure cookies (Render ke liye), LOCAL me allowed hai
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
-#  Render CSRF domain issue avoid karne ke liye
-#CSRF_COOKIE_DOMAIN = None
-# CSRF_USE_SESSIONS = True
+# ❌ LOCAL me HTTPS redirect nahi karega
+# SECURE_SSL_REDIRECT = True  # DISABLED for local run
 
-#  Referer mismatch safe bypass (Render proxy ke liye)
-# CSRF_TRUSTED_ORIGINS += ["https://" + host for host in ALLOWED_HOSTS if "." in host]
-
-#  Temporary CSRF failure debugger (just for now)
+# CSRF Debug view
 CSRF_FAILURE_VIEW = "credit_approval.views.csrf_debug_view"
-
 
 # -------------------- APPLICATIONS --------------------
 INSTALLED_APPS = [
@@ -64,7 +60,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# -------------------- URLS & TEMPLATES --------------------
 ROOT_URLCONF = 'credit_approval.urls'
 
 TEMPLATES = [
@@ -85,17 +80,36 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'credit_approval.wsgi.application'
 
-# -------------------- DATABASE (POSTGRES ON RENDER) --------------------
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get(
-            'DATABASE_URL',
-            'postgresql://credit_approval_db_user:WM8b1S7hRpck7ytdp4IKFTvmXL6vt3fO@dpg-d3tsg8k9c44c73e9eug0-a.oregon-postgres.render.com/credit_approval_db'
-        ),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# ----------------------------------------------------
+#                DATABASE CONFIG
+# ----------------------------------------------------
+if os.environ.get("DOCKER_ENV") == "true":
+    print(" Using LOCAL Docker PostgreSQL")
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get("POSTGRES_DB", "credit_approval_db"),
+            'USER': os.environ.get("POSTGRES_USER", "postgres"),
+            'PASSWORD': os.environ.get("POSTGRES_PASSWORD", "postgres"),
+            'HOST': os.environ.get("POSTGRES_HOST", "db"),
+            'PORT': '5432',
+        }
+    }
+
+else:
+    print(" Using REMOTE Render PostgreSQL")
+
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get(
+                'DATABASE_URL',
+                'postgresql://credit_approval_db_user:WM8b1S7hRpck7ytdp4IKFTvmXL6vt3fO@dpg-d3tsg8k9c44c73e9eug0-a.oregon-postgres.render.com/credit_approval_db'
+            ),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
 # -------------------- PASSWORD VALIDATION --------------------
 AUTH_PASSWORD_VALIDATORS = [
