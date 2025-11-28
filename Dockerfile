@@ -25,4 +25,5 @@ EXPOSE 10000
 # Start the app:
 # 1. Run migrations in PostgreSQL
 # 2. Start Gunicorn
-CMD ["sh", "-c", "python manage.py migrate && gunicorn credit_approval.wsgi:application --bind 0.0.0.0:10000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn credit_approval.wsgi:application --bind 0.0.0.0:10000"]
+
