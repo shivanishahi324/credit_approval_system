@@ -4,21 +4,25 @@ FROM python:3.10-slim
 # Set work directory inside the container
 WORKDIR /app
 
-# Install system dependencies (with SSL certificates)
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev gcc ca-certificates && \
     update-ca-certificates && \
     pip install --upgrade pip
 
-# Copy all project files into container
+# Copy project files
 COPY . /app/
 
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Expose Django's port
-EXPOSE 8000
+# Collect static files (DRF UI issue fix)
+RUN python manage.py collectstatic --noinput
 
-# Command to run the app
-CMD ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# Expose Render's default port
+EXPOSE 10000
 
+# Start the app:
+# 1. Run migrations in PostgreSQL
+# 2. Start Gunicorn
+CMD ["sh", "-c", "python manage.py migrate && gunicorn credit_approval.wsgi:application --bind 0.0.0.0:10000"]
